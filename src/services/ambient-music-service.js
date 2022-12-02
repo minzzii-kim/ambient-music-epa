@@ -163,7 +163,7 @@ module.exports = class AmbientMusicService {
     const esclient = new ESClient();
     //let id = "5iis9J2sptrUy0VIpFVIg1";
     const response = await esclient.search("song_id", id);
-    return response;
+    return response[0];
     //return ["a", "b", "c"];
   }
   async getDeviceStatus() {

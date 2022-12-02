@@ -15,7 +15,7 @@ router
     res.send("Hello");
   })
   .get("/musicInfo/:id", async (req, res) => {
-    if (!req.params.id) req.params.id = "37i9dQZF1DZ06evO1A8iR2";
+    if (!req.params.id) req.params.id = "5iis9J2sptrUy0VIpFVIg1";
     console.log(req.params);
 
     const id = req.params.id;
@@ -35,7 +35,7 @@ router
     }
   })
   .get("/playlist/:id", async (req, res) => {
-    if (!req.params.id) req.params.id = "5iis9J2sptrUy0VIpFVIg1";
+    if (!req.params.id) req.params.id = "37i9dQZF1DZ06evO1A8iR2";
 
     console.log("get playlist id ", req.params.id);
     const amService = new AmbientMusicService();

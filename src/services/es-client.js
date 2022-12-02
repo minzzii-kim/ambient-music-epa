@@ -39,7 +39,7 @@ module.exports = class ESClient {
         data: queryString,
       });
       console.log("===================");
-      console.log(response.data.hits.hits);
+      console.log(response.data.hits.hits.map(({_source})=>_source));
       console.log("===================");
       if (response.status != 200) {
         console.error(
@@ -47,7 +47,7 @@ module.exports = class ESClient {
           `Response status code of GET is not 200 OK. Status Code : ${response.status}`
         );
       }
-      return response.data.hits.hits[0]._source;
+      return response.data.hits.hits.map(({_source})=>_source);
     } catch (err) {
       console.log("GET Error : " + err);
     }

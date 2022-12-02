@@ -49,7 +49,44 @@ module.exports = class ESClient {
       }
       return response.data.hits.hits[0]._source;
     } catch (err) {
-      console.log("GET Error : " + error);
+      console.log("GET Error : " + err);
+    }
+  }
+
+  async songIdsByPlaylistId(ply_id) {
+    let queryString = {
+      _source: {
+        includes: ["_id"]
+      },
+      query: {
+        match: {
+          playlist_id: ply_id,
+        }
+      }
+    }
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${ELASTICSEARCH_URL}/music_data/_search`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        auth: {
+          username: ELASTICSEARCH_ID,
+          password: ELASTICSEARCH_PWD,
+        },
+        data: queryString,
+      });
+      if (response.status != 200) {
+        console.error(
+          "es-client",
+          `Response status code of GET is not 200 OK. Status Code : ${response.status}`
+        );
+      }
+      let songIdList = response.data.hits.hits.map(({_id})=>_id);
+      return songIdList;
+    } catch (err) {
+      console.log("GET Error : " + err);
     }
   }
 };

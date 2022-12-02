@@ -153,13 +153,12 @@ module.exports = class AmbientMusicService {
       }, s * 1000);
     }
   }
-  async getPlayList() {
+  async getPlayList(plyId) {
     //return Player.getPlayList()
     const esclient = new ESClient();
-    let id = "5iis9J2sptrUy0VIpFVIg1";
-    const response = await esclient.search(id);
+    const response = await esclient.songIdsByPlaylistId(plyId);
     return response;
-    //return ["a", "b", "c"];
+    //return ["3URb74mrpnRWY1HtTBEUKH", ...]
   }
   async getMusicInfo(id) {
     const esclient = new ESClient();

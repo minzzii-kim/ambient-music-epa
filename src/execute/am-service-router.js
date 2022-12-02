@@ -20,7 +20,6 @@ router
     const id = req.params.id;
     const amService = new AmbientMusicService();
     const result = await amService.getMusicInfo(id);
-
     const musicData = MusicData.Builder.build(result).responseMessage();
 
     try {
@@ -33,10 +32,11 @@ router
       return new ResponseBuilder(500).message("Internal Server Error").build();
     }
   })
-  .get("/playlist", async (req, res) => {
+  .get("/playlist/:plyId", async (req, res) => {
     console.log("get playlist ... ");
+    const plyId = req.params.plyId;
     const amService = new AmbientMusicService();
-    const result = await amService.getPlayList();
+    const result = await amService.getPlayList(plyId);
 
     try {
       res.send(new ResponseBuilder().message(result).build());

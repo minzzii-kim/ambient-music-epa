@@ -16,15 +16,15 @@ module.exports = class ESClient {
       },
     });
   }
-  async search(id) {
+  async search(_k, _v) {
     let queryString = {
       query: {
         match: {
-          _id: id,
+          [_k]: _v,
         },
       },
     };
-
+    console.log(JSON.stringify(queryString));
     try {
       const response = await axios({
         method: "post",
@@ -49,7 +49,7 @@ module.exports = class ESClient {
       }
       return response.data.hits.hits[0]._source;
     } catch (err) {
-      console.log("GET Error : " + error);
+      console.log("GET Error : " + err);
     }
   }
 };

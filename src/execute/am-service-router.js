@@ -15,6 +15,7 @@ router
     res.send("Hello");
   })
   .get("/musicInfo/:id", async (req, res) => {
+    if (!req.params.id) req.params.id = "37i9dQZF1DZ06evO1A8iR2";
     console.log(req.params);
 
     const id = req.params.id;
@@ -33,10 +34,12 @@ router
       return new ResponseBuilder(500).message("Internal Server Error").build();
     }
   })
-  .get("/playlist", async (req, res) => {
-    console.log("get playlist ... ");
+  .get("/playlist/:id", async (req, res) => {
+    if (!req.params.id) req.params.id = "5iis9J2sptrUy0VIpFVIg1";
+
+    console.log("get playlist id ", req.params.id);
     const amService = new AmbientMusicService();
-    const result = await amService.getPlayList();
+    const result = await amService.getPlayList(req.params.id);
 
     try {
       res.send(new ResponseBuilder().message(result).build());

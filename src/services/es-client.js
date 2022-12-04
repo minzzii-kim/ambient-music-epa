@@ -16,14 +16,7 @@ module.exports = class ESClient {
       },
     });
   }
-  async search(_k, _v) {
-    let queryString = {
-      query: {
-        match: {
-          [_k]: _v,
-        },
-      },
-    };
+  async requestCURL(queryString) {
     console.log(JSON.stringify(queryString));
     try {
       const response = await axios({
@@ -38,18 +31,31 @@ module.exports = class ESClient {
         },
         data: queryString,
       });
-      console.log("===================");
-      console.log(response.data.hits.hits);
-      console.log("===================");
+      // console.log("===================");
+      // console.log(response.data);
+      // console.log("===================");
       if (response.status != 200) {
         console.error(
           "es-client",
           `Response status code of GET is not 200 OK. Status Code : ${response.status}`
         );
       }
-      return response.data.hits.hits[0]._source;
+      return response.data
     } catch (err) {
       console.log("GET Error : " + err);
     }
   }
+
+  async search(_k, _v) {
+    let queryString = {
+      query: {
+        match: {
+          [_k]: _v,
+        },
+      },
+    };
+    let response = await this.requestCURL(queryString)
+    return response.hits.hits.map(({_source})=>_source); // 한번에 여러개의 결과인 경우
+  }
+
 };

@@ -2,6 +2,7 @@ const ResponseBuilder = require("./response-builder");
 const ServiceError = require("../errors/service-error");
 
 const express = require("express");
+const cors = require('cors');
 
 const DeviceService = require("../services/device-service");
 const AmbientMusicService = require("../services/ambient-music-service");
@@ -10,6 +11,10 @@ const Player = require('../services/am-player')
 
 const {SPOTIPY_CLIENT_ID} = require("../server-config/constants");
 const router = express.Router();
+// router.options('*', cors())
+router.use(
+    cors()
+);
 
 router
   .get("/", (req, res) => {

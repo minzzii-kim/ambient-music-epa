@@ -159,10 +159,38 @@ module.exports = class AmbientMusicService {
     const response = await esclient.search("playlist_id", id);
     return response;
   }
+  async getAllPlaylist() {
+    const esclient = new ESClient();
+    let queryString = {
+      "size": 0,
+      "aggs": {
+        "playlist": {
+          "multi_terms": {
+            "terms": [{
+              "field": "playlist_id.keyword"
+            },{
+              "field": "playlist_name.keyword"
+            },{
+              "field": "playlist_img_hrl.keyword"
+            }]
+          }
+        }
+      }
+    }
+    const response = await esclient.requestCURL(queryString);
+    let data = response.aggregations.playlist.buckets.map(({key})=>key)
+    const result = Object.assign([], data.map(
+      (x) => (
+        {"playlist_id": x[0], "playlist_name": x[1], "playlist_img_hrl": x[2]})
+      )
+    )
+    return result
+  }
   async getMusicInfo(id) {
     const esclient = new ESClient();
     //let id = "5iis9J2sptrUy0VIpFVIg1";
     const response = await esclient.search("song_id", id);
+    console.log(response);
     return response;
     //return ["a", "b", "c"];
   }

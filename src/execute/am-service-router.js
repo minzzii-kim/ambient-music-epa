@@ -57,7 +57,7 @@ router
   })
   .get("/playlistAll", async (req, res) => {
     const amService = new AmbientMusicService();
-    const result = await amService.getAllPlaylist();
+    const result = await amService.getAllPlaylists();
 
     try {
       res.send(new ResponseBuilder().message(result).build());

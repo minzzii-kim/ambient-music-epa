@@ -49,6 +49,6 @@ module.exports = class EsApi {
       },
     };
     let response = await this.client.get(queryString);
-    return response.hits.hits.map(({ _source }) => _source); // 한번에 여러개의 결과인 경우
+    return response
   }
 };

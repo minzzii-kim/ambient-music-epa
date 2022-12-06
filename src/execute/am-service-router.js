@@ -13,6 +13,7 @@ const { SPOTIPY_CLIENT_ID } = require("../server-config/constants");
 const router = express.Router();
 // router.options('*', cors())
 // router.use(cors());
+const amService = new AmbientMusicService();
 
 router
   .get("/", (req, res) => {
@@ -24,7 +25,7 @@ router
     console.log(req.params);
 
     const id = req.params.id;
-    const amService = new AmbientMusicService();
+    //const amService = new AmbientMusicService();
     const result = await amService.getMusicInfo(id);
     //const musicData = MusicData.Builder.build(result).responseMessage();
 
@@ -42,7 +43,7 @@ router
     //if (!req.params.id) req.params.id = "37i9dQZF1DZ06evO1A8iR2";
 
     console.log("get playlist id ", req.params.id);
-    const amService = new AmbientMusicService();
+    //const amService = new AmbientMusicService();
     const result = await amService.getPlayList(req.params.id);
 
     try {
@@ -56,7 +57,7 @@ router
     }
   })
   .get("/playlistAll", async (req, res) => {
-    const amService = new AmbientMusicService();
+    //const amService = new AmbientMusicService();
     const result = await amService.getAllPlaylist();
 
     try {
@@ -68,11 +69,11 @@ router
       return new ResponseBuilder(500).message("Internal Server Error").build();
     }
   })
-  .put("/start/:id", async (req, res) => {
-    const amService = new AmbientMusicService();
-
+  .put("/play/:id", async (req, res) => {
+    console.log(`play with song id : ${req.params.id}`);
+    //const amService = new AmbientMusicService();
     try {
-      const response = amService.start(req.params.id);
+      const response = await amService.start(req.params.id);
       res.send(new ResponseBuilder().message(response).build());
     } catch (error) {
       if (error instanceof ServiceError) {
@@ -84,10 +85,27 @@ router
 
     // TODO compose response
   })
+  .put("/pause/:id", async (req, res) => {
+    console.log(`pause playing`);
+    //const amService = new AmbientMusicService();
+    try {
+      const response = await amService.stop();
+      res.send(new ResponseBuilder().message(response).build());
+    } catch (error) {
+      if (error instanceof ServiceError) {
+        throw error; // foward
+      } else {
+        throw new ServiceError(400, "Bad Request");
+      }
+    }
+
+    // TODO compose response
+  })
+
   .get("/devices", async (req, res) => {
     // get all supported devices
     const deviceService = new DeviceService();
-    return await deviceService.getAirDevices();
+    return await deviceService.getLightDevices();
   });
 
 module.exports = router;

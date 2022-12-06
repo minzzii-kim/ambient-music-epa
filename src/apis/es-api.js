@@ -9,7 +9,7 @@ module.exports = class EsApi {
     let queryString = {
       query: {
         match: {
-          song_id: id,
+          _id: id,
         },
       },
     };

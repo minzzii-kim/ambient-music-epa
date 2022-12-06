@@ -6,6 +6,7 @@ const ESApi = require("../apis/es-api");
 
 const OnSetMocks = require("../mocks/onset-mocks");
 const ColorMocks = require("../mocks/color-mocks");
+const colorMocks = require("../mocks/color-mocks");
 
 const capability = "colorControl"; //'switchLevel';
 const command = "setColor"; //'setLevel';
@@ -24,6 +25,8 @@ module.exports = class AmbientMusicService {
     this.accessToken = "b87326ac-2e52-4b27-a41f-04334f4faee9";
     this.deviceApis = new DeviceApis(this.accessToken);
     this.esApi = new ESApi();
+    this.isPlaying = false;
+    this.timers = [];
   }
   setInitialState() {
     let initCommands = [
@@ -43,30 +46,35 @@ module.exports = class AmbientMusicService {
     ];
     this.deviceApis.executeCommands(this.deviceId, initCommands);
   }
-  async getOnsets() {
+  async getOnsets(id) {
     //return MusicData.Builder.getOnsets();
-    return await OnSetMocks.times;
+    return await OnSetMocks.onset_detect;
   }
 
-  async getColors() {
+  async getColors(id) {
     //return MusicData.Builder.getColors();
     return await ColorMocks.colors;
   }
   async start(id) {
-    // if (id != MusicData.Builder.getId()) {
-    //   console.log("invalid id");
-    //   return id;
-    // }
     this.setInitialState();
-    const times = MusicDataBuilder.getOnsets();
-    const colors = MusicDataBuilder.getColors();
+
+    //const onsets = MusicDataBuilder.getOnsets();
+    //const colors = MusicDataBuilder.getColors();
+    //const mood = "joy";
+
+    const { onsets, mood } = await this.getMusicInfo(id);
+    const colors = colorMocks.colors[mood].map((c) => ({
+      hue: c.hue,
+      saturation: c.saturation,
+    }));
+    console.log("colors ", colors);
 
     const colorlen = colors.length;
-    for (let i = 0; i < times.length; ++i) {
-      const s = times[i];
+    for (let i = 0; i < onsets.length; ++i) {
+      const s = onsets[i];
 
       const color = colors[i % colorlen];
-      setTimeout(() => {
+      let timerId = setTimeout(() => {
         console.log(
           `${s} sec  , command : ${command}, color : ${i % colorlen}`
         );
@@ -77,9 +85,26 @@ module.exports = class AmbientMusicService {
           command,
           [color]
         );
+        if (this.timers) {
+          this.timers.shift();
+        }
       }, s * 1000);
+
+      this.timers.push(timerId);
     }
+
+    this.isPlaying = true;
+
     return id;
+  }
+  async stop() {
+    this.isPlaying = false;
+    console.log("stop : timers count", this.timers.length);
+    this.timers.map((timerId) => {
+      clearTimeout(timerId);
+    });
+    this.timers = [];
+    return "stopped";
   }
   async getPlayList(id) {
     const response = await this.esApi.getPlaylist(id);
@@ -99,18 +124,12 @@ module.exports = class AmbientMusicService {
     return result;
   }
   async getMusicInfo(id) {
-    //let id = "5iis9J2sptrUy0VIpFVIg1";
     const response = await this.esApi.getMusicInfo(id);
 
-    const onsets = await this.getOnsets();
-    const colors = await this.getColors();
-
-    const result = MusicDataBuilder.build(response[0])
-      .setOnsets(onsets)
-      .setColors(colors);
+    console.log(response);
+    const result = MusicDataBuilder.build(response[0]);
 
     return result;
-    //return ["a", "b", "c"];
   }
   async getDeviceStatus() {
     const result = await this.deviceApis.getComponentStatus(

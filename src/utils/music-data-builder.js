@@ -7,7 +7,7 @@ module.exports = class MusicData {
     this.playlist_id = build.playlist_id;
     this.playlist_name = build.playlist_name;
     this.playlist_url = build.playlist_url;
-    this.colors = build.colors;
+    this.mood = build.mood;
     this.onsets = build.onsets;
   }
   get() {
@@ -18,7 +18,7 @@ module.exports = class MusicData {
       playlist_id: this.playlist_id,
       playlist_name: this.playlist_name,
       playlist_url: this.playlist_url,
-      colors: this.colors,
+      mood: this.mood,
       onsets: this.onsets,
     };
   }
@@ -34,8 +34,8 @@ module.exports = class MusicData {
       getOnsets() {
         return this.onsets;
       }
-      getColors() {
-        return this.colors;
+      getMood() {
+        return this.mood;
       }
       setId(id) {
         this.id = id;
@@ -61,9 +61,9 @@ module.exports = class MusicData {
         this.playlist_url = url;
         return this;
       }
-      setColors(colors) {
-        if (!colors) return this;
-        this.colors = [...colors];
+      setMood(mood) {
+        if (!mood) return this;
+        this.mood = mood;
         return this;
       }
       setOnsets(onsets) {
@@ -77,8 +77,8 @@ module.exports = class MusicData {
           .setSongName(data.song_name)
           .setPlaylistId(data.playlist_id)
           .setPlaylistUrl(data.playlist_url)
-          .setColors(data.colors)
-          .setOnsets(data.onsets);
+          .setMood(data.text_sentiments_emotion.label[0])
+          .setOnsets(data.onset_detect);
 
         return this;
       }

@@ -35,7 +35,7 @@ module.exports = class AmbientMusicService {
         component: "main",
         capability: "switchLevel",
         command: "setLevel",
-        arguments: [20],
+        arguments: [82],
       },
       {
         component: "main",

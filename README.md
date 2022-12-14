@@ -8,6 +8,10 @@ https://account.smartthings.com/tokens
 5. 사용할 권한을 선택한다.
 6. Token을 복사해서, 안전하게 잘 보관한다. (이때 복사하지 않으면 다시 확인할 방법이 없다!)
 
+### Reference
+https://account.smartthings.com/tokens
+https://developer-preview.smartthings.com/docs/advanced/authorization-and-permissions
+
 ## Light Onboarding
 1. WWST(Works With SmartThings) 기기인지 확인한다.
 2. 기기 온보딩 (클라우드 등록)을 진행한다.
@@ -110,11 +114,62 @@ curl -H "Authorization: Bearer {{your PAT token here}}" -X GET https://api.smart
 curl -XPOST -H "Content-Type: application/json" -H "Authorization: Bearer {{your PAT token here}}" "https://api.smartthings.com/devices/{{your deviceId here}}/commands" -d "{\"commands\":[{\"component\":\"main\",\"capability\":\"switch\",\"command\":\"on\",\"arguments\":[]}]}"
 ```
 
-### Reference
-https://account.smartthings.com/tokens
-https://developer-preview.smartthings.com/docs/advanced/authorization-and-permissions
 
 ## Ambient Music 실행하기
 
 1. `npm install` 을 실행하여 라이브러리 설치
 2. `node ./src/index.js` 를 실행하여 서버 실행
+
+
+# References
+## SmartThigns Developer Workspace
+https://smartthings.developer.samsung.com/workspace/
+
+## SmartThings Developers
+https://developer-preview.smartthings.com/
+
+## SmartApp(EndpointApp) Document
+https://developer-preview.smartthings.com/docs/connected-services/smartapp-basics
+
+## SmartThings SDK docs
+https://github.com/SmartThingsCommunity/smartapp-sdk-nodejs/blob/master/docs/index.md
+
+## SmartThings API
+https://developer-preview.smartthings.com/docs/api/public
+### Devices
+- Get Devices : https://developer-preview.smartthings.com/docs/api/public#tag/Devices
+- Get the Full status of a Device : https://developer-preview.smartthings.com/docs/api/public#operation/getDeviceStatus
+- Execute Command : https://developer-preview.smartthings.com/docs/api/public#operation/executeDeviceCommands
+### Event Subscription
+- List an Installed App's Subscriptions : https://developer-preview.smartthings.com/docs/api/public#operation/listSubscriptions
+- Create a Subscription for an Installed App : https://developer-preview.smartthings.com/docs/api/public#operation/saveSubscription
+- Delete an Installed App's Subscription : https://developer-preview.smartthings.com/docs/api/public#operation/deleteSubscription
+### Schedules
+- List Installed App's Schedules : https://developer-preview.smartthings.com/docs/api/public#tag/Schedules
+- Create a Schedule for an Installed App : https://developer-preview.smartthings.com/docs/api/public#operation/createSchedule
+- Delete an Installed App's Schedule : https://developer-preview.smartthings.com/docs/api/public#operation/deleteSchedule
+
+## SmartThings CLI
+https://github.com/SmartThingsCommunity/smartthings-cli
+
+# node.js modules
+## node.js - js runtime
+https://nodejs.org
+## express.js - web framework
+http://expressjs.com/
+## axios - promise based HTTP client
+https://axios-http.com/kr/docs/intro
+
+# JavaScript
+https://developer.mozilla.org/ko/docs/Web/JavaScript
+## Promise
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise
+## async / await
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function
+
+# Environment
+## ngrok
+https://ngrok.com
+## postman
+https://www.postman.com/
+## 

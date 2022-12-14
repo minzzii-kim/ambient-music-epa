@@ -121,55 +121,27 @@ curl -XPOST -H "Content-Type: application/json" -H "Authorization: Bearer {{your
 2. `node ./src/index.js` 를 실행하여 서버 실행
 
 
-# References
-## SmartThigns Developer Workspace
+## References
+### SmartThigns Developer Workspace
 https://smartthings.developer.samsung.com/workspace/
 
-## SmartThings Developers
+### SmartThings Developers
 https://developer-preview.smartthings.com/
 
-## SmartApp(EndpointApp) Document
+### SmartApp(EndpointApp) Document
 https://developer-preview.smartthings.com/docs/connected-services/smartapp-basics
 
-## SmartThings SDK docs
+### SmartThings SDK docs
 https://github.com/SmartThingsCommunity/smartapp-sdk-nodejs/blob/master/docs/index.md
 
-## SmartThings API
+### SmartThings API
 https://developer-preview.smartthings.com/docs/api/public
+
 ### Devices
 - Get Devices : https://developer-preview.smartthings.com/docs/api/public#tag/Devices
 - Get the Full status of a Device : https://developer-preview.smartthings.com/docs/api/public#operation/getDeviceStatus
 - Execute Command : https://developer-preview.smartthings.com/docs/api/public#operation/executeDeviceCommands
-### Event Subscription
-- List an Installed App's Subscriptions : https://developer-preview.smartthings.com/docs/api/public#operation/listSubscriptions
-- Create a Subscription for an Installed App : https://developer-preview.smartthings.com/docs/api/public#operation/saveSubscription
-- Delete an Installed App's Subscription : https://developer-preview.smartthings.com/docs/api/public#operation/deleteSubscription
-### Schedules
-- List Installed App's Schedules : https://developer-preview.smartthings.com/docs/api/public#tag/Schedules
-- Create a Schedule for an Installed App : https://developer-preview.smartthings.com/docs/api/public#operation/createSchedule
-- Delete an Installed App's Schedule : https://developer-preview.smartthings.com/docs/api/public#operation/deleteSchedule
 
-## SmartThings CLI
+### SmartThings CLI
 https://github.com/SmartThingsCommunity/smartthings-cli
 
-# node.js modules
-## node.js - js runtime
-https://nodejs.org
-## express.js - web framework
-http://expressjs.com/
-## axios - promise based HTTP client
-https://axios-http.com/kr/docs/intro
-
-# JavaScript
-https://developer.mozilla.org/ko/docs/Web/JavaScript
-## Promise
-https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise
-## async / await
-https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function
-
-# Environment
-## ngrok
-https://ngrok.com
-## postman
-https://www.postman.com/
-## 
